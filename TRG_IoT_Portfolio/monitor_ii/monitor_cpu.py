@@ -1,6 +1,8 @@
 from datetime import datetime
 from time import sleep
 
+from cpu_load import get_maximum_cpu_load
+
 # import the ORM items
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
