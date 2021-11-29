@@ -59,7 +59,7 @@ def index():
     statuses = [cpu, storage, enviro]
     return render_template('index.html', statuses=statuses)
 
-@app.route('/api/device_load')
+@app.route('/api/device-load')
 def device_load_latest():
     return device_load(1)
 
@@ -88,26 +88,25 @@ def device_load(qty=1):
 @app.route('/api/environment')
 def get_api_environment():
     current_enviro = get_api_temperature(), get_api_pressure(), get_api_humidity()
+    return {"Environment": current_enviro}
 
-    return {"Environment":current_enviro}
 
-
-@app.route('/api/tempurature')
+@app.route('/api/temperature')
 def get_api_temperature():
     current_temp = EnvironmentTPH().temperature
-    return {"Tempurature":current_temp}
+    return {"Temperature": current_temp}
 
 
 @app.route('/api/pressure')
 def get_api_pressure():
     current_pressure = EnvironmentTPH().pressure
-    return {"Tempurature":current_pressure}
+    return {"Pressure": current_pressure}
 
 
 @app.route('/api/humidity')
 def get_api_humidity():
     current_humidity = EnvironmentTPH().humidity
-    return {"Tempurature":current_humidity}
+    return {"Humidity": current_humidity}
 
 
 @app.route('/api/history')
@@ -129,4 +128,4 @@ def demo_template():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5500)

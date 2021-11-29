@@ -63,5 +63,5 @@ def main(_delay):
 
 
 if __name__ == '__main__':
-    delay = 5.0
+    delay = 1.0
     main(delay)
