@@ -92,22 +92,22 @@ def get_api_environment():
     return {"Environment":current_enviro}
 
 
-@app.route('/api/temperature')
+@app.route('/api/tempurature')
 def get_api_temperature():
     current_temp = EnvironmentTPH().temperature
-    return {"Temperature":current_temp}
+    return {"Tempurature":current_temp}
 
 
 @app.route('/api/pressure')
 def get_api_pressure():
     current_pressure = EnvironmentTPH().pressure
-    return {"Pressure":current_pressure}
+    return {"Tempurature":current_pressure}
 
 
 @app.route('/api/humidity')
 def get_api_humidity():
     current_humidity = EnvironmentTPH().humidity
-    return {"Humidity":current_humidity}
+    return {"Tempurature":current_humidity}
 
 
 @app.route('/api/history')
