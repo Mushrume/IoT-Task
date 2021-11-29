@@ -1,5 +1,10 @@
 import sqlite3
+from datetime import datetime
 
+from sqlalchemy import Column, String, Integer, Float, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class Database:
     def __init__(self, filename, table_name='cpu_loads'):
@@ -133,3 +138,6 @@ class Database:
                 f"    WHERE created_at > datetime('now', '{value} {period}')" \
                 f"    ORDER BY created_at DESC"
         return self.__retrieve(query, json=json)
+
+
+    

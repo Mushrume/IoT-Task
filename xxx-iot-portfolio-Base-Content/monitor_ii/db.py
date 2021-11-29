@@ -44,3 +44,24 @@ class Storage(Base):
         self.total_storage = None
         self.free_storage = None
         self.used_storage = None
+
+
+class EnvironmentTPH(Base):
+    __tablename__ = 'tph_storage'
+    id = Column(Integer, primary_key=True)
+    device_name = Column(String)
+    device_mac = Column(String)
+    device_serial = Column(String)
+    temperature = Column(Float)
+    pressure = Column(Float)
+    humidity = Column(Float)
+    created_at = Column(Float)
+
+    def __init__(self):
+        self.device_name = 'UNKNOWN'
+        self.device_mac = 'ZZ:ZZ:ZZ:ZZ:ZZ:ZZ'
+        self.device_serial = 'UNKNOWN'
+        self.temperature = 60
+        self.pressure = 110
+        self.humidity = 50
+        self.created_at = datetime.now()

@@ -1,11 +1,19 @@
+import random
+import logging
+
+from sqlalchemy.sql.expression import select
+import current as current
+import self as self
+
 from flask import Flask, render_template, jsonify
-from db import CPU, Storage, Base
+from db import CPU, Storage, EnvironmentTPH, Base
 from flask_cors import CORS
 
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 
 db_filename = './data/monitor_data.db'
+
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
@@ -51,13 +59,13 @@ def index():
     statuses = [cpu, storage, enviro]
     return render_template('index.html', statuses=statuses)
 
+@app.route('/api/device_load')
+def device_load_latest():
+    return device_load(1)
 
-@app.route('/about')
-def demo_template():
-    return render_template('about.html')
 
-@app.route('/api/cpu-load/<qty>')
-def cpu_load(qty=1):
+@app.route('/api/device-load/<qty>')
+def device_load(qty=1):
     try:
         qty = abs(int(qty))
     except:
@@ -76,37 +84,48 @@ def cpu_load(qty=1):
     }}
     return jsonify(data)
 
-@app.route("/api/environment")
+
+@app.route('/api/environment')
 def get_api_environment():
-    return {"error": "Route note implemented",
-        "temperature": None,
-        "pressure": None,
-        "humidity": None,}
+    current_enviro = get_api_temperature(), get_api_pressure(), get_api_humidity()
 
-@app.route("/api/temperature")
+    return {"Environment":current_enviro}
+
+
+@app.route('/api/tempurature')
 def get_api_temperature():
-    return {"error": "Route note implemented",
-        "temperature": None,
-        "pressure": None,
-        "humidity": None,}
+    current_temp = EnvironmentTPH().temperature
+    return {"Tempurature":current_temp}
 
-@app.route("/api/pressure")
+
+@app.route('/api/pressure')
 def get_api_pressure():
-    return {"error": "Route note implemented",
-        "temperature": None,
-        "pressure": None,
-        "humidity": None,}
+    current_pressure = EnvironmentTPH().pressure
+    return {"Tempurature":current_pressure}
 
-@app.route("/api/humidity")
+
+@app.route('/api/humidity')
 def get_api_humidity():
-    return {"error": "Route note implemented",
-        "temperature": None,
-        "pressure": None,
-        "humidity": None,}
+    current_humidity = EnvironmentTPH().humidity
+    return {"Tempurature":current_humidity}
 
-@app.route('/api/cpu-load')
-def cpu_load_latest():
-    return cpu_load(1)
+
+@app.route('/api/history')
+def temp_history():
+    @app.route('/api/ticker')
+    def something():
+        x = 0
+        for num in range(1):
+            r = random.randint(0, 50)
+            x = r
+
+        return{'History':x}
+    return render_template('Historical_page.html')
+
+
+@app.route('/about')
+def demo_template():
+    return render_template('about.html')
 
 
 if __name__ == '__main__':
