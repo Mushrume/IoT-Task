@@ -57,7 +57,7 @@ def index():
         monitor_enviro)
 
     statuses = [cpu, storage, enviro]
-    return render_template('chart-cpu.html', statuses=statuses)
+    return render_template('index.html', statuses=statuses)
 
 @app.route('/api/device_load')
 def device_load_latest():
@@ -129,4 +129,4 @@ def demo_template():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5555)
