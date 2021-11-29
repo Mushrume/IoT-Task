@@ -57,7 +57,7 @@ def index():
         monitor_enviro)
 
     statuses = [cpu, storage, enviro]
-    return render_template('index.html', statuses=statuses)
+    return render_template('chart-cpu.html', statuses=statuses)
 
 @app.route('/api/device_load')
 def device_load_latest():
@@ -92,22 +92,22 @@ def get_api_environment():
     return {"Environment":current_enviro}
 
 
-@app.route('/api/tempurature')
+@app.route('/api/temperature')
 def get_api_temperature():
     current_temp = EnvironmentTPH().temperature
-    return {"Tempurature":current_temp}
+    return {"Temperature":current_temp}
 
 
 @app.route('/api/pressure')
 def get_api_pressure():
     current_pressure = EnvironmentTPH().pressure
-    return {"Tempurature":current_pressure}
+    return {"Pressure":current_pressure}
 
 
 @app.route('/api/humidity')
 def get_api_humidity():
     current_humidity = EnvironmentTPH().humidity
-    return {"Tempurature":current_humidity}
+    return {"Humidity":current_humidity}
 
 
 @app.route('/api/history')
