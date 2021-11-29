@@ -43,9 +43,6 @@ var pieUpdate = function() {
             let response = responseObj[responseNumber]
             let cpu_load = response.load;
             let cpu_idle = 100 - cpu_load;
-
-            console.log(response.created_at)
-            console.log(response.load)
             myPieChart.data.datasets[0].data = [cpu_load, cpu_idle]
             myPieChart.update()
         }
